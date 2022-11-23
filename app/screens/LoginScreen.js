@@ -1,34 +1,41 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
-import Screen from '../components/Screen';
-import AppTextInput from '../components/AppTextImput';
+import {Formik} from 'formik';
+import React from 'react';
+import {Image, StyleSheet} from 'react-native';
 import AppButton from '../components/AppButton';
+import AppTextInput from '../components/AppTextImput';
+import Screen from '../components/Screen';
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require('../assets/logo-red.png')} />
-      <AppTextInput
-        onChangeText={text => setEmail(text)}
-        icon="email"
-        placeholder="email"
-        keyboardType="email-address"
-        autoCapitalize="none"
-        autoCorrect={false}
-        clearButtonMode="always" // ios clear btn
-        textContentType="emailAddress" //ios autofill
-      />
-      <AppTextInput
-        onChangeText={text => setPassword(text)}
-        icon="lock"
-        placeholder="Password"
-        autoCapitalize="none"
-        autoCorrect={false}
-        secureTextEntry
-        textContentType="password" //ios autofill
-      />
-      <AppButton title="Login" onPress={() => console.log(email, password)} />
+      <Formik
+        initialValues={{email: '', password: ''}}
+        onSubmit={values => console.log(values)}>
+        {({handleChange, handleSubmit}) => (
+          <>
+            <AppTextInput
+              onChangeText={handleChange('email')}
+              icon="email"
+              placeholder="email"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              autoCorrect={false}
+              clearButtonMode="always" // ios clear btn
+              textContentType="emailAddress" //ios autofill
+            />
+            <AppTextInput
+              onChangeText={handleChange('password')}
+              icon="lock"
+              placeholder="Password"
+              autoCapitalize="none"
+              autoCorrect={false}
+              secureTextEntry
+              textContentType="password" //ios autofill
+            />
+            <AppButton title="Login" onPress={handleSubmit} />
+          </>
+        )}
+      </Formik>
     </Screen>
     // <View>
     //   <Text>LoginScreen</Text>
