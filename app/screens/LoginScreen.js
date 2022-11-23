@@ -1,14 +1,9 @@
-import {Formik} from 'formik';
 import React from 'react';
 import {Image, StyleSheet} from 'react-native';
 import * as Yup from 'yup';
-import AppButton from '../components/AppButton';
-import AppTextInput from '../components/AppTextInput';
 import Screen from '../components/Screen';
-import AppText from '../components/AppText';
-import ErrorMessage from '../components/ErrorMessage';
-import AppFormField from '../components/AppFormField';
-import SubmitButton from '../components/SubmitButton';
+import {AppForm, AppFormField, SubmitButton} from '../components/forms';
+
 // validation schema (validation rules for all inputs)
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label('Email'),
@@ -45,9 +40,6 @@ const LoginScreen = () => {
         <SubmitButton title="Login" />
       </AppForm>
     </Screen>
-    // <View>
-    //   <Text>LoginScreen</Text>
-    // </View>
   );
 };
 
