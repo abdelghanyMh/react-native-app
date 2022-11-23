@@ -18,36 +18,32 @@ const LoginScreen = () => {
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require('../assets/logo-red.png')} />
-      <Formik
+      <AppForm
         initialValues={{email: '', password: ''}}
         onSubmit={values => console.log(values)}
         validationSchema={validationSchema}>
-        {() => (
-          <>
-            <AppFormField
-              name="email"
-              icon="email"
-              placeholder="email"
-              keyboardType="email-address"
-              autoCapitalize="none"
-              autoCorrect={false}
-              clearButtonMode="always" // ios clear btn
-              textContentType="emailAddress" //ios autofill
-            />
-            <AppFormField
-              name="password"
-              icon="lock"
-              placeholder="Password"
-              autoCapitalize="none"
-              autoCorrect={false}
-              secureTextEntry
-              textContentType="password" //ios autofill
-            />
+        <AppFormField
+          name="email"
+          icon="email"
+          placeholder="email"
+          keyboardType="email-address"
+          autoCapitalize="none"
+          autoCorrect={false}
+          clearButtonMode="always" // ios clear btn
+          textContentType="emailAddress" //ios autofill
+        />
+        <AppFormField
+          name="password"
+          icon="lock"
+          placeholder="Password"
+          autoCapitalize="none"
+          autoCorrect={false}
+          secureTextEntry
+          textContentType="password" //ios autofill
+        />
 
-            <SubmitButton title="Login" />
-          </>
-        )}
-      </Formik>
+        <SubmitButton title="Login" />
+      </AppForm>
     </Screen>
     // <View>
     //   <Text>LoginScreen</Text>
