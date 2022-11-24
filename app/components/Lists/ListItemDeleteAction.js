@@ -1,10 +1,9 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import colors from '../config/colors';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import {StyleSheet, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import colors from '../../config/colors';
 
-const ListDeleteAction = ({onPress}) => {
+const ListItemDeleteAction = ({onPress}) => {
   return (
     <TouchableWithoutFeedback style={{height: '100%'}} onPress={onPress}>
       <View style={styles.container}>
@@ -14,7 +13,7 @@ const ListDeleteAction = ({onPress}) => {
   );
 };
 
-export default ListDeleteAction;
+export default ListItemDeleteAction;
 
 const styles = StyleSheet.create({
   container: {

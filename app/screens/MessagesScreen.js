@@ -1,8 +1,10 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, View} from 'react-native';
-import ListDeleteAction from '../components/ListDeleteAction';
-import ListItem from '../components/ListItem';
-import ListItemSeparator from '../components/ListItemSeparator';
+import {useState} from 'react';
+import {FlatList, StyleSheet} from 'react-native';
+import {
+  ListItem,
+  ListItemDeleteAction,
+  ListItemSeparator,
+} from '../components/Lists';
 import Screen from '../components/Screen';
 const initialMessages = [
   {
@@ -44,7 +46,7 @@ const MessagesScreen = () => {
             image={item.image}
             onPress={() => console.log('message selcted', item)}
             renderRightActions={() => (
-              <ListDeleteAction onPress={() => handleDelete(item)} />
+              <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}
           />
         )}
