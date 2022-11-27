@@ -3,13 +3,16 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import defaultStyles from '../config/styles';
 import Icon from './Icon';
-const AppPicker = ({
-  icon,
-  selectedValue,
-  onValueChange,
-  items,
-  ...otherProps
-}) => {
+const AppPicker = ({icon, onChangeItem, items, placeholder}) => {
+  // this state is needed to display the selected  newSelectedItem
+  const [value, setValue] = React.useState(items[0]);
+
+  const handlePress = (itemValue, itemIndex) => {
+    const newSelectedItem = items[itemIndex];
+    onChangeItem(newSelectedItem);
+    setValue(itemValue);
+  };
+
   return (
     <View style={styles.container}>
       <Icon
@@ -19,10 +22,11 @@ const AppPicker = ({
       />
       <Picker
         style={styles.picker}
-        {...otherProps}
-        selectedValue={selectedValue}
-        // TODO check if this is changing the formik context value for the selected value
-        onValueChange={onValueChange}>
+        placeholder={placeholder}
+        selectedValue={value}
+        onValueChange={(itemValue, itemIndex) =>
+          handlePress(itemValue, itemIndex)
+        }>
         {items.map(({label, value}) => (
           <Picker.Item key={label} label={label} value={value} />
         ))}
