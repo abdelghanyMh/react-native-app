@@ -20,9 +20,10 @@ const menuItem = [
       name: 'person',
       backgroundColor: colors.secondary,
     },
+    targetScreen: 'Messages',
   },
 ];
-const AccountScreen = () => {
+const AccountScreen = ({navigation: {navigate}}) => {
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -45,6 +46,7 @@ const AccountScreen = () => {
                   backgroundColor={item.icon.backgroundColor}
                 />
               }
+              onPress={() => navigate(item.targetScreen)}
             />
           )}
           ItemSeparatorComponent={ListItemSeparator}
