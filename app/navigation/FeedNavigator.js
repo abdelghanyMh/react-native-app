@@ -7,8 +7,12 @@ const Stack = createNativeStackNavigator();
 export default function FeedNavigator() {
   return (
     // FIXME presentation  not working
-    <Stack.Navigator screenOptions={{headerShown: false}}>
-      <Stack.Screen name={Routes.Listing} component={ListingScreen} />
+    <Stack.Navigator>
+      <Stack.Screen
+        name={Routes.Listing}
+        component={ListingScreen}
+        options={{headerShown: false}}
+      />
       <Stack.Screen
         name={Routes.Listing_Details}
         component={ListingDetailsScreen}
