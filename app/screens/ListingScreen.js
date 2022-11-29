@@ -1,25 +1,47 @@
 import {useEffect, useState} from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import listingApi from '../api/listings';
-import Card from '../components/Card';
-import Screen from '../components/Screen';
+import {
+  AppActivityIndicator,
+  AppButton,
+  AppText,
+  Card,
+  Screen,
+} from '../components';
 import colors from '../config/colors';
 import Routes from '../navigation/Routes';
 
 const ListingScreen = ({navigation: {navigate}}) => {
   const [listings, setListings] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const loadListing = async () => {
-    const response = await listingApi.getLisings();
+  const loadListings = async () => {
+    setLoading(true);
+    const response = await listingApi.getListings();
+    setLoading(false);
+
+    // handling errors
+    if (!response.ok) return setError(true);
+
+    setError(false);
     setListings(response.data);
   };
 
   useEffect(() => {
-    loadListing();
+    loadListings();
   }, []);
 
   return (
     <Screen style={styles.screen}>
+      {error && (
+        <>
+          <AppText>couldn't retrieve the listings. </AppText>
+          <AppButton title="Retry" onPress={loadListings} />
+        </>
+      )}
+
+      <AppActivityIndicator visible={loading} />
       <FlatList
         data={listings}
         keyExtractor={listings => listings.id.toString()}
