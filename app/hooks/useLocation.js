@@ -35,7 +35,7 @@ const useLocation = () => {
   const getLocation = () => {
     const result = requestLocationPermission();
     result.then(res => {
-      console.log('res is:', res);
+      // console.log('res is:', res);
       if (res) {
         Geolocation.getCurrentPosition(
           position => {
@@ -51,7 +51,7 @@ const useLocation = () => {
         );
       }
     });
-    console.log(location);
+    // console.log(location);
   };
   useEffect(() => {
     getLocation();

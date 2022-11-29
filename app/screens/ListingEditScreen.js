@@ -10,6 +10,7 @@ import {
 } from '../components/forms';
 import Screen from '../components/Screen';
 import useLocation from '../hooks/useLocation';
+import listingsApi from '../api/listings';
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required().min(1).label('Title'),
@@ -27,6 +28,19 @@ const categories = [
 
 function ListingEditScreen() {
   const location = useLocation();
+  const handleSubmit = async listing => {
+    const result = await listingsApi.addListings({
+      ...listing,
+      location: {
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      },
+    });
+    console.log(result);
+    if (!result.ok) return alert('could not save the listing!');
+
+    alert('Success');
+  };
 
   return (
     <Screen style={styles.container}>
@@ -38,7 +52,7 @@ function ListingEditScreen() {
           category: null,
           images: [],
         }}
-        onSubmit={values => console.log(location)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}>
         <FormImagePicker name="images" />
         <FormField maxLength={255} name="title" placeholder="Title" />
