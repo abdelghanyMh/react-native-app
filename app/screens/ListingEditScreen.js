@@ -32,7 +32,7 @@ function ListingEditScreen() {
   const location = useLocation();
   const [uploadScreenVisible, setUploadScreenVisible] = useState(false);
   const [progress, setProgress] = useState(0);
-  const handleSubmit = async listing => {
+  const handleSubmit = async (listing, {resetForm}) => {
     // reset progress value so that the progress value starts from 0
     setProgress(0);
     setUploadScreenVisible(true);
@@ -51,6 +51,9 @@ function ListingEditScreen() {
       setUploadScreenVisible(false);
       return alert('could not save the listing!');
     }
+
+    // In case everything goes well, reset the Form
+    resetForm();
   };
 
   return (

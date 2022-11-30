@@ -1,18 +1,21 @@
 import {Picker} from '@react-native-picker/picker';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import defaultStyles from '../config/styles';
 import Icon from './Icon';
 const AppPicker = ({icon, onChangeItem, items, placeholder}) => {
   // this state is needed to display the selected  newSelectedItem
   const [value, setValue] = React.useState(items[0]);
+  // set the initial  category value  to items[0]
+  useEffect(() => {
+    onChangeItem(value);
+  }, []);
 
   const handlePress = (itemValue, itemIndex) => {
     const newSelectedItem = items[itemIndex];
     onChangeItem(newSelectedItem);
     setValue(itemValue);
   };
-
   return (
     <View style={styles.container}>
       <Icon
