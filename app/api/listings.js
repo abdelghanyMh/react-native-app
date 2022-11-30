@@ -3,7 +3,7 @@ import client from './Client';
 const endpoint = '/listings';
 const getListings = () => client.get(endpoint);
 
-const addListings = listing => {
+const addListings = (listing, onUploadProgress) => {
   const data = new FormData();
   data.append('title', listing.title);
   data.append('price', listing.price);
@@ -24,8 +24,11 @@ const addListings = listing => {
     data.append('location', JSON.stringify(listing.location));
   }
 
-  console.log(data);
-  return client.post(endpoint, data);
+  // console.log(data);
+  return client.post(endpoint, data, {
+    onUploadProgress: progressEvent =>
+      onUploadProgress(progressEvent.loaded / progressEvent.total),
+  });
 };
 
 export default {
