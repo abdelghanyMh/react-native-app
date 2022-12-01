@@ -1,4 +1,3 @@
-import {StyleSheet, Text, View} from 'react-native';
 import {useState} from 'react';
 
 const useApi = apiFunc => {
@@ -27,5 +26,3 @@ const useApi = apiFunc => {
 };
 
 export default useApi;
-
-const styles = StyleSheet.create({});
