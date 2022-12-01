@@ -1,27 +1,23 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
+import OfflineNotice from './app/components/OfflineNotice';
+import colors from './app/config/colors';
+import AppNavigator from './app/navigation/AppNavigator';
 
-import React from 'react';
-import {View} from 'react-native';
-import AppPicker from './app/components/AppPicker';
-import AppTextInput from './app/components/AppTextImput';
-
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: colors.primary,
+  },
+};
 const App = () => {
   return (
-    <View>
-      <AppPicker icon="apps" />
-      <AppTextInput
-        icon="email"
-        placeholder="email"
-        clearButtonMode="always"
-        keyboardType="email-address"
-      />
-    </View>
+    <>
+      <OfflineNotice />
+      <NavigationContainer theme={MyTheme}>
+        <AppNavigator />
+      </NavigationContainer>
+    </>
   );
 };
 

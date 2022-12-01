@@ -1,5 +1,5 @@
 import {create} from 'apisauce';
-import cache from '../utils/store';
+import cache from '../utils/cache';
 
 // create api client object
 // so we can call the doneWithIt backend

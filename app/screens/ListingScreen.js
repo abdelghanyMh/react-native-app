@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, View} from 'react-native';
 import listingApi from '../api/listings';
 import {
   AppActivityIndicator,
@@ -22,10 +22,10 @@ const ListingScreen = ({navigation: {navigate}}) => {
   return (
     <Screen style={styles.screen}>
       {getListingsApi.error && (
-        <>
+        <View style={styles.offlineContainer}>
           <AppText>couldn't retrieve the listings. </AppText>
-          <AppButton title="Retry" onPress={getListingsApi.request()} />
-        </>
+          <AppButton title="Retry" onPress={() => getListingsApi.request()} />
+        </View>
       )}
 
       <AppActivityIndicator visible={getListingsApi.loading} />
@@ -50,5 +50,10 @@ const styles = StyleSheet.create({
   screen: {
     padding: 20,
     backgroundColor: colors.grey_light,
+  },
+  offlineContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
   },
 });
