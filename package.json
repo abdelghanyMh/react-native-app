@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^1.17.11",
     "@react-native-community/hooks": "^2.8.1",
     "@react-native-picker/picker": "^2.4.8",
     "@react-navigation/bottom-tabs": "^6.4.1",
@@ -19,6 +20,7 @@
     "formik": "^2.2.9",
     "lottie-ios": "^3.4.0",
     "lottie-react-native": "^5.1.4",
+    "moment": "^2.29.4",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-geolocation-service": "^5.3.1",
