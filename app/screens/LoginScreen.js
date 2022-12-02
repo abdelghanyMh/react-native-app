@@ -10,9 +10,10 @@ import {
   ErrorMessage,
   SubmitButton,
 } from '../components/forms';
-import Screen from '../components/Screen';
+import {Screen, AppActivityIndicator} from '../components';
 import AuthContext from '../auth/context';
 import cache from '../utils/cache';
+import useApi from '../hooks/useApi';
 
 // validation schema (validation rules for all inputs)
 const validationSchema = Yup.object().shape({
@@ -23,9 +24,10 @@ const validationSchema = Yup.object().shape({
 const LoginScreen = () => {
   const [loginFailed, setLoginFailed] = useState(false);
   const authContext = useContext(AuthContext);
+  const loginApi = useApi(authApi.login);
 
   const handleSubmit = async ({email, password}) => {
-    const result = await authApi.login(email, password);
+    const result = await loginApi.request(email, password);
     if (!result.ok) {
       return setLoginFailed(true);
     }
@@ -39,39 +41,43 @@ const LoginScreen = () => {
     cache.store('authToken', result.data);
   };
   return (
-    <Screen style={styles.container}>
-      <Image style={styles.logo} source={require('../assets/logo-red.png')} />
-      <AppForm
-        initialValues={{email: '', password: ''}}
-        onSubmit={handleSubmit}
-        validationSchema={validationSchema}>
-        <ErrorMessage
-          error="Invalid email and/or password"
-          visible={loginFailed}
-        />
-        <AppFormField
-          name="email"
-          icon="email"
-          placeholder="email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-          clearButtonMode="always" // ios clear btn
-          textContentType="emailAddress" //ios autofill
-        />
-        <AppFormField
-          name="password"
-          icon="lock"
-          placeholder="Password"
-          autoCapitalize="none"
-          autoCorrect={false}
-          secureTextEntry
-          textContentType="password" //ios autofill
-        />
+    <>
+      <AppActivityIndicator visible={loginApi.loading} />
 
-        <SubmitButton title="Login" />
-      </AppForm>
-    </Screen>
+      <Screen style={styles.container}>
+        <Image style={styles.logo} source={require('../assets/logo-red.png')} />
+        <AppForm
+          initialValues={{email: '', password: ''}}
+          onSubmit={handleSubmit}
+          validationSchema={validationSchema}>
+          <ErrorMessage
+            error="Invalid email and/or password"
+            visible={loginFailed}
+          />
+          <AppFormField
+            name="email"
+            icon="email"
+            placeholder="email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+            clearButtonMode="always" // ios clear btn
+            textContentType="emailAddress" //ios autofill
+          />
+          <AppFormField
+            name="password"
+            icon="lock"
+            placeholder="Password"
+            autoCapitalize="none"
+            autoCorrect={false}
+            secureTextEntry
+            textContentType="password" //ios autofill
+          />
+
+          <SubmitButton title="Login" />
+        </AppForm>
+      </Screen>
+    </>
   );
 };
 
