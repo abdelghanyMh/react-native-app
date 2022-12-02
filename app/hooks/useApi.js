@@ -9,13 +9,14 @@ const useApi = apiFunc => {
     setLoading(true);
     // const response = await listingApi.getListings();
     const response = await apiFunc(...args);
+    // console.log(response);
     setLoading(false);
 
     // handling errors
-    if (!response.ok) return setError(true);
+    setError(!response.ok);
 
-    setError(false);
     setData(response.data);
+    return response;
   };
   return {
     data,

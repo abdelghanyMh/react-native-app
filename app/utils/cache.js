@@ -53,12 +53,24 @@ const remove = async key => {
 
 // get the saved user from the cache
 const getUser = async () => {
-  const authToken = await get('authToken');
-  return authToken ? jwtDecode(authToken) : null;
+  try {
+    const authToken = await getToken();
+    return authToken ? jwtDecode(authToken) : null;
+  } catch (error) {
+    console.log(error);
+  }
+};
+const getToken = async () => {
+  try {
+    return await get('authToken');
+  } catch (error) {
+    console.log(error);
+  }
 };
 export default {
   store,
-  get,
   remove,
+  get,
+  getToken,
   getUser,
 };

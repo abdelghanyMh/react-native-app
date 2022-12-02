@@ -19,7 +19,7 @@ export default function WelcomeScreen({navigation: {navigate}}) {
         <AppButton
           title="Register"
           color="secondary"
-          onPress={() => navigate(Routes.Register, item)}
+          onPress={() => navigate(Routes.Register)}
         />
       </View>
     </ImageBackground>

@@ -1,9 +1,20 @@
-import React from 'react';
+import jwtDecode from 'jwt-decode';
+import {useContext, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import * as Yup from 'yup';
 
+import authApi from '../api/auth';
+import usersApi from '../api/users';
+import AuthContext from '../auth/context';
+import {
+  AppForm,
+  AppFormField,
+  ErrorMessage,
+  SubmitButton,
+} from '../components/forms';
 import Screen from '../components/Screen';
-import {AppForm, AppFormField, SubmitButton} from '../components/forms';
+import useApi from '../hooks/useApi';
+import cache from '../utils/cache';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label('Name'),
@@ -12,12 +23,43 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen() {
+  const loginApi = useApi(authApi.login);
+  const registerApi = useApi(usersApi.register);
+  const authContext = useContext(AuthContext);
+  const [registerError, setRegisterError] = useState();
+
+  const handleSubmit = async userInfo => {
+    const result = await registerApi.request(userInfo);
+
+    // handling errors
+    if (!result.ok) {
+      if (result.data) setRegisterError(result.data.error);
+      else {
+        setRegisterError('An unexpected error occurred.');
+        console.log('RegisterScreen', result);
+      }
+      return;
+    }
+
+    // try to login new user
+    const {data: authToken} = await loginApi.request(
+      userInfo.email,
+      userInfo.password,
+    );
+    // console.log('RegisterScreen', authToken);
+    const user = jwtDecode(authToken);
+    // console.log(user);
+    // FIXME move setUser &&  cache.store to a new function in the auth context in order to secure the auth token
+    authContext.setUser(user);
+    cache.store('authToken', result.data);
+  };
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{name: '', email: '', password: ''}}
-        onSubmit={values => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}>
+        <ErrorMessage error={registerError} visible={registerError} />
         <AppFormField
           autoCorrect={false}
           icon="person"

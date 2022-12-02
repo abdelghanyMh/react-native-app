@@ -8,6 +8,14 @@ const apiClient = create({
   baseURL: 'http://192.168.1.2:9000/api',
 });
 
+// grant access to protected routes
+//  add auth token to request  (x-auth-token) for the auth middleware
+apiClient.addAsyncRequestTransform(async request => {
+  const authToken = await cache.getToken();
+  if (!authToken) return;
+  request.headers['x-auth-token'] = authToken;
+});
+
 // @override api sauce's get function
 // cache the server response
 const get = apiClient.get;
