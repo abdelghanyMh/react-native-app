@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import jwtDecode from 'jwt-decode';
 import moment from 'moment';
 
 // config
@@ -30,11 +31,11 @@ const get = async key => {
 
     if (!item) return null;
 
-    if (isExpired(item)) {
-      // Command Query Separation (CQS)
-      await AsyncStorage.removeItem(prefix + key);
-      return null;
-    }
+    // if (isExpired(item)) {
+    //   // Command Query Separation (CQS)
+    //   await AsyncStorage.removeItem(prefix + key);
+    //   return null;
+    // }
 
     return item.value;
   } catch (error) {
@@ -42,7 +43,22 @@ const get = async key => {
   }
 };
 
+const remove = async key => {
+  try {
+    await AsyncStorage.removeItem(prefix + key);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+// get the saved user from the cache
+const getUser = async () => {
+  const authToken = await get('authToken');
+  return authToken ? jwtDecode(authToken) : null;
+};
 export default {
   store,
   get,
+  remove,
+  getUser,
 };

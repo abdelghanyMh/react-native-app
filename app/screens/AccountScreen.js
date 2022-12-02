@@ -6,6 +6,7 @@ import colors from '../config/colors';
 import Icon from '../components/Icon';
 import ListItemSeparator from '../components/Lists/ListItemSeparator';
 import AuthContext from '../auth/context';
+import cache from '../utils/cache';
 
 const menuItem = [
   {
@@ -26,6 +27,11 @@ const menuItem = [
 ];
 const AccountScreen = ({navigation: {navigate}}) => {
   const authContext = useContext(AuthContext);
+
+  const handleLogOut = () => {
+    authContext.setUser(null);
+    cache.remove('authToken');
+  };
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
@@ -57,6 +63,7 @@ const AccountScreen = ({navigation: {navigate}}) => {
       <ListItem
         title="Log Out"
         IconComponent={<Icon name="logout" backgroundColor={colors.yellow} />}
+        onPress={handleLogOut}
       />
     </Screen>
   );
