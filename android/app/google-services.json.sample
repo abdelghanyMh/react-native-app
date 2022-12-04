@@ -1,0 +1,41 @@
+//  this file is auto generated 
+// https://rnfirebase.io/#generating-android-credentials
+ {
+  "project_info": {
+    "project_number": "credentials",
+    "project_id": "donewithit-5673b",
+    "storage_bucket": "donewithit-5673b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "credentials",
+        "android_client_info": {
+          "package_name": "com.donewithit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "credential",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "credentials"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "credentials",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
