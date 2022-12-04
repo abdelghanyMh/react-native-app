@@ -1,16 +1,22 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
 import colors from '../config/colors';
-import AppText from '../components/AppText';
 import ListItem from '../components/Lists/ListItem';
-
-const ListingDetailsScreen = ({route: {params}}) => {
+import {ContactSellerForm, AppText} from '../components';
+const ListingDetailsScreen = ({route: {params: listing}}) => {
   return (
     <View>
-      <Image style={styles.image} source={{uri: params.images[0].url}} />
+      <Image style={styles.image} source={{uri: listing.images[0].url}} />
       <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>{params.title}</AppText>
-        <AppText style={styles.price}>${params.price}</AppText>
+        <AppText style={styles.title}>{listing.title}</AppText>
+        <AppText style={styles.price}>${listing.price}</AppText>
         <View style={styles.userContainer}>
           <ListItem
             image={require('../assets/mosh.jpg')}
@@ -19,6 +25,7 @@ const ListingDetailsScreen = ({route: {params}}) => {
           />
         </View>
       </View>
+      <ContactSellerForm listing={listing} />
     </View>
   );
 };

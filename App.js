@@ -6,6 +6,7 @@ import colors from './app/config/colors';
 import AppNavigator from './app/navigation/AppNavigator';
 import AuthNavigator from './app/navigation/AuthNavigator';
 import cache from './app/utils/cache';
+import useNotification from './app/hooks/useNotification';
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -14,6 +15,8 @@ const MyTheme = {
   },
 };
 const App = () => {
+  useNotification(); // init handle
+
   const [user, setUser] = useState();
   // TODO add App loading screen
 
