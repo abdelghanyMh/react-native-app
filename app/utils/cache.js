@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import dayjs from 'dayjs';
 import jwtDecode from 'jwt-decode';
-import moment from 'moment';
-
 // config
 const prefix = 'cache';
 const expiryInMinutes = 5; // if the item is stored 5 minutes ago => expired
@@ -19,9 +18,9 @@ const store = async (key, value) => {
   }
 };
 const isExpired = item => {
-  const now = moment(Date.now());
-  const storedTime = moment(item.timestamp);
-  return now.diff(storedTime, 'minutes') > expiryInMinutes;
+  const now = dayjs();
+  const storedTime = dayjs(item.timestamp);
+  return now.diff(storedTime, 'minute') > expiryInMinutes;
 };
 
 const get = async key => {
@@ -60,6 +59,7 @@ const getUser = async () => {
     console.log(error);
   }
 };
+
 const getToken = async () => {
   try {
     return await get('authToken');
@@ -67,6 +67,7 @@ const getToken = async () => {
     console.log(error);
   }
 };
+
 export default {
   store,
   remove,
