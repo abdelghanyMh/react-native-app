@@ -12,12 +12,15 @@ import colors from '../config/colors';
 import useApi from '../hooks/useApi';
 import Routes from '../navigation/Routes';
 
+import {useIsFocused} from '@react-navigation/native';
+
 const ListingScreen = ({navigation: {navigate}}) => {
   const getListingsApi = useApi(listingApi.getListings);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     getListingsApi.request();
-  }, []);
+  }, [isFocused]);
 
   return (
     <Screen style={styles.screen}>

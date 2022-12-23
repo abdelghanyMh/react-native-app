@@ -7,6 +7,8 @@ import AppNavigator from './app/navigation/AppNavigator';
 import AuthNavigator from './app/navigation/AuthNavigator';
 import cache from './app/utils/cache';
 import useNotification from './app/hooks/useNotification';
+import errorLogger from './app/utils/ErrorLogger';
+
 const MyTheme = {
   ...DefaultTheme,
   colors: {
@@ -14,10 +16,14 @@ const MyTheme = {
     primary: colors.primary,
   },
 };
+// init errorLogger
+errorLogger.start();
+
 const App = () => {
+  errorLogger.logError(new Error('error test'));
   useNotification(); // init handle
 
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   // TODO add App loading screen
 
   const restoreUser = async () => {

@@ -5,7 +5,7 @@ import cache from '../utils/cache';
 // so we can call the doneWithIt backend
 
 const apiClient = create({
-  baseURL: 'http://192.168.1.2:9000/api',
+  baseURL: 'http://192.168.1.12:9000/api',
 });
 
 // grant access to protected routes
@@ -15,7 +15,6 @@ apiClient.addAsyncRequestTransform(async request => {
   if (!authToken) return;
   request.headers['x-auth-token'] = authToken;
 });
-
 // @override api sauce's get function
 // cache the server response
 const get = apiClient.get;

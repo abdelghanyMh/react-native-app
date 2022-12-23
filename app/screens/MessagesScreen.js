@@ -44,7 +44,6 @@ const MessagesScreen = () => {
             title={item.title}
             subTitle={item.desc}
             image={item.image}
-            onPress={() => console.log('message selcted', item)}
             renderRightActions={() => (
               <ListItemDeleteAction onPress={() => handleDelete(item)} />
             )}

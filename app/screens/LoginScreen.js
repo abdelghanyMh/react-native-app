@@ -33,9 +33,7 @@ const LoginScreen = () => {
     }
 
     setLoginFailed(false);
-    console.log(result.data);
     const user = jwtDecode(result.data);
-    console.log(user);
     // FIXME move setUser &&  cache.store to a new function in the auth context in order to secure the auth token
     authContext.setUser(user);
     cache.store('authToken', result.data);

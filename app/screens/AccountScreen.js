@@ -38,7 +38,7 @@ const AccountScreen = ({navigation: {navigate}}) => {
         <ListItem
           title={authContext.user.name}
           subTitle={authContext.user.email}
-          image={require('../assets/mosh.jpg')}
+          image={require('../assets/avatar.png')}
         />
       </View>
       <View style={styles.container}>

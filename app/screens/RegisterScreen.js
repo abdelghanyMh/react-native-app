@@ -25,7 +25,8 @@ const validationSchema = Yup.object().shape({
 function RegisterScreen() {
   const loginApi = useApi(authApi.login);
   const registerApi = useApi(usersApi.register);
-  const authContext = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
+
   const [registerError, setRegisterError] = useState();
 
   const handleSubmit = async userInfo => {
@@ -47,11 +48,9 @@ function RegisterScreen() {
       userInfo.password,
     );
     // console.log('RegisterScreen', authToken);
-    const user = jwtDecode(authToken);
-    // console.log(user);
-    // FIXME move setUser &&  cache.store to a new function in the auth context in order to secure the auth token
-    authContext.setUser(user);
-    cache.store('authToken', result.data);
+    const newUser = jwtDecode(authToken);
+    setUser(newUser);
+    cache.store('authToken', authToken);
   };
   return (
     <>

@@ -7,9 +7,7 @@ const useApi = apiFunc => {
 
   const request = async (...args) => {
     setLoading(true);
-    // const response = await listingApi.getListings();
     const response = await apiFunc(...args);
-    // console.log(response);
     setLoading(false);
 
     // handling errors

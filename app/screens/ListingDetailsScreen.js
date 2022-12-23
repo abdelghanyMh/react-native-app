@@ -3,30 +3,34 @@ import {
   KeyboardAvoidingView,
   ScrollView,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
-import React from 'react';
-import colors from '../config/colors';
+import {AppText, ContactSellerForm} from '../components';
 import ListItem from '../components/Lists/ListItem';
-import {ContactSellerForm, AppText} from '../components';
+import colors from '../config/colors';
 const ListingDetailsScreen = ({route: {params: listing}}) => {
   return (
-    <View>
-      <Image style={styles.image} source={{uri: listing.images[0].url}} />
-      <View style={styles.detailsContainer}>
-        <AppText style={styles.title}>{listing.title}</AppText>
-        <AppText style={styles.price}>${listing.price}</AppText>
-        <View style={styles.userContainer}>
-          <ListItem
-            image={require('../assets/mosh.jpg')}
-            title="username"
-            subTitle="5 listing"
-          />
+    // FIXME not working
+    <KeyboardAvoidingView>
+      <ScrollView>
+        <View>
+          <Image style={styles.image} source={{uri: listing.images[0].url}} />
+          <View style={styles.detailsContainer}>
+            <AppText style={styles.title}>{listing.title}</AppText>
+            <AppText style={styles.price}>$ {listing.price}</AppText>
+            <View style={styles.userContainer}>
+              <ListItem
+                image={require('../assets/avatar.png')}
+                title="username"
+                subTitle="5 listing"
+              />
+            </View>
+          </View>
+
+          <ContactSellerForm listing={listing} />
         </View>
-      </View>
-      <ContactSellerForm listing={listing} />
-    </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
